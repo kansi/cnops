@@ -23,7 +23,6 @@ defmodule Cnops.GitHub do
       with {:ok, %Tesla.Env{body: %{"artifacts" => [artifact]}}} <- get(url),
            {:ok, %Tesla.Env{body: body}} <- get(artifact["archive_download_url"]) do
         {:ok, [{name, release_tar}]} = :zip.extract(body, [:memory])
-        #  File.write("/tmp/#{name}", release_tar)
         {:ok, {name, release_tar}}
       end
     end
@@ -81,6 +80,21 @@ defmodule Cnops.GitHub do
       Workflow.list_runs(@owner, repo, branch: "master", status: "success", per_page: 1)
 
     Enum.map(runs, fn run ->
+      %{
+        sha: run["head_sha"],
+        timestamp: run["created_at"],
+        artifacts_url: run["artifacts_url"]
+      }
+    end)
+    |> hd()
+  end
+
+  def get_successful_workflow_run_for_commit(repo, sha) do
+    {:ok, %Tesla.Env{body: %{"workflow_runs" => runs}}} =
+      Workflow.list_runs(@owner, repo, branch: "master", status: "success", per_page: 100)
+
+    Enum.filter(runs, fn %{"head_sha" => head_sha} -> head_sha == sha end)
+    |> Enum.map(fn run ->
       %{
         sha: run["head_sha"],
         timestamp: run["created_at"],

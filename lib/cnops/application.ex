@@ -7,12 +7,22 @@ defmodule Cnops.Application do
 
   @impl true
   def start(_type, _args) do
+    :net_kernel.start([:cnops, :shortnames])
+    ns_testing_hello = Cnops.Services.Hello.get_namespace_spec(:testing)
+    ns_testing_hello_go = Cnops.Services.HelloGo.get_namespace_spec()
+
     children = [
-      Cnops.Scheduler
+      Cnops.Scheduler,
+      %{
+        id: NamespaceTestingHello,
+        start: {ControlNode.Namespace, :start_link, [ns_testing_hello, Cnops.Services.Hello]}
+      },
+      %{
+        id: NamespaceTestingHelloGo,
+        start: {ControlNode.Namespace, :start_link, [ns_testing_hello_go, Cnops.Services.HelloGo]}
+      }
     ]
 
-    # See https://hexdocs.pm/elixir/Supervisor.html
-    # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Cnops.Supervisor]
     Supervisor.start_link(children, opts)
   end
