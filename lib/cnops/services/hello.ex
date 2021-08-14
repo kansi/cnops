@@ -6,7 +6,7 @@ defmodule Cnops.Services.Hello do
     spec: %ControlNode.Release.Spec{
       name: @release_name,
       # Path to store release tar file on remote host
-      base_path: "/home/cnops-ex-eu-conf/hello-releases"
+      base_path: "/home/cnops/hello-releases"
     }
 
   alias Cnops.Hosts
