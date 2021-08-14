@@ -6,7 +6,9 @@ config :logger, :console,
   metadata: :all
 
 config :cnops, Cnops.Scheduler,
+  debug_logging: false,
   overlap: false,
+  state: (System.get_env("CONTROL_MODE") == "MANAGE" && :active) || :inactive,
   jobs: [
     [
       schedule: {:extended, "*/15"},

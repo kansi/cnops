@@ -25,7 +25,7 @@ defmodule Cnops.Deploy do
 
   def hello_go_testing() do
     with {:ok, [%{version: vsn}]} when not is_nil(vsn) <-
-           ControlNode.Namespace.current_version(:production_rubin) do
+           ControlNode.Namespace.current_version(:testing_rubin) do
       maybe_update_testing(Services.HelloGo, :testing_hello_go, vsn)
     else
       _ ->
