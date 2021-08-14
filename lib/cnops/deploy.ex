@@ -34,7 +34,7 @@ defmodule Cnops.Deploy do
   end
 
   def hello_testing() do
-    # 1. current version will return :busy if its in deploy stage
+    # 1. current_version/1 will return :busy if its deploying
     # 2. version: nil implies that release is not running in which case we let
     #    the user manually deploy the release
     with {:ok, [%{version: vsn}]} when not is_nil(vsn) <-

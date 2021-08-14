@@ -22,8 +22,7 @@ defmodule Cnops.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:control_node, "~> 0.5.0", path: "../../control-node"},
-      #  {:control_node, "~> 0.5.0"},
+      {:control_node, "~> 0.6.0"},
       {:quantum, "~> 3.0"},
       {:tesla, "~> 1.4"},
       {:hackney, "~> 1.17.0"},
