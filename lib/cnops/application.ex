@@ -7,7 +7,8 @@ defmodule Cnops.Application do
 
   @impl true
   def start(_type, _args) do
-    :net_kernel.start([:cnops, :shortnames])
+    node_name = System.fetch_env!("SSH_USER") |> String.to_atom()
+    :net_kernel.start([node_name, :shortnames])
     ns_testing_hello = Cnops.Services.Hello.get_namespace_spec(:testing)
     ns_testing_hello_go = Cnops.Services.HelloGo.get_namespace_spec()
 

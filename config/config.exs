@@ -5,8 +5,17 @@ config :logger, :console,
   level: :debug,
   metadata: :all
 
-# config :cnops, Cnops.Scheduler,
-#   jobs: [
-#     {"*/10 * * * * *", {Cnops.Deploy, :rollout_new_vsn, [:testing]}},
-#     {"*/10 * * * * *", {Cnops.Deploy, :rollout_new_vsn, [:production]}}
-#   ]
+config :cnops, Cnops.Scheduler,
+  overlap: false,
+  jobs: [
+    [
+      schedule: {:extended, "*/15"},
+      run_strategy: Quantum.RunStrategy.Local,
+      task: {Cnops.Deploy, :hello_testing, []}
+    ],
+    [
+      schedule: {:extended, "*/15"},
+      run_strategy: Quantum.RunStrategy.Local,
+      task: {Cnops.Deploy, :hello_go_testing, []}
+    ]
+  ]

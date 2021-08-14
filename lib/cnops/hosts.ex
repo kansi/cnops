@@ -1,13 +1,13 @@
 defmodule Cnops.Hosts do
   def test1_spec() do
-    gen_host_spec("34.66.203.68", "cnops-ex-eu-conf")
+    gen_host_spec("34.66.203.68")
   end
 
-  defp gen_host_spec(host, user) do
+  defp gen_host_spec(host) do
     %ControlNode.Host.SSH{
       host: host,
       port: 22,
-      user: user,
+      user: System.fetch_env!("SSH_USER"),
       private_key_dir: System.fetch_env!("PRIVATE_KEY_DIR"),
       via_ssh_agent: false
     }
