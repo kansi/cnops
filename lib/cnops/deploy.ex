@@ -26,7 +26,7 @@ defmodule Cnops.Deploy do
   def hello_go_testing() do
     with {:ok, [%{version: vsn}]} when not is_nil(vsn) <-
            ControlNode.Namespace.current_version(:testing_rubin) do
-      maybe_update_testing(Services.HelloGo, :testing_hello_go, vsn)
+      maybe_update_testing(Services.HelloGo, :testing_rubin, vsn)
     else
       _ ->
         :ok
@@ -58,6 +58,7 @@ defmodule Cnops.Deploy do
     end
   end
 
+  # update_testing(Services.Hello, :testing_hello)
   def update_testing(svc_module, namespace) do
     {:ok, vsn} = svc_module.download_and_store_latest_master_build()
     Logger.info("Deploying new release version #{vsn}")
