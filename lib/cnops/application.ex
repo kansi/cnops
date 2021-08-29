@@ -9,11 +9,16 @@ defmodule Cnops.Application do
   def start(_type, _args) do
     node_name = System.fetch_env!("SSH_USER") |> String.to_atom()
     :net_kernel.start([node_name, :shortnames])
+    ns_production_hello = Cnops.Services.Hello.get_namespace_spec(:production)
     ns_testing_hello = Cnops.Services.Hello.get_namespace_spec(:testing)
     ns_testing_hello_go = Cnops.Services.HelloGo.get_namespace_spec()
 
     children = [
       Cnops.Scheduler,
+      %{
+        id: NamespaceProductionHello,
+        start: {ControlNode.Namespace, :start_link, [ns_production_hello, Cnops.Services.Hello]}
+      },
       %{
         id: NamespaceTestingHello,
         start: {ControlNode.Namespace, :start_link, [ns_testing_hello, Cnops.Services.Hello]}

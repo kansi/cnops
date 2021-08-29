@@ -12,6 +12,16 @@ defmodule Cnops.Services.Hello do
   alias Cnops.Hosts
   alias Cnops.GitHub
 
+  def get_namespace_spec(:production) do
+    %ControlNode.Namespace.Spec{
+      tag: :production,
+      hosts: [Hosts.prod1_spec()],
+      registry_spec: registry_spec(),
+      deployment_type: :incremental_replace,
+      release_cookie: :simple_cookie_4526
+    }
+  end
+
   def get_namespace_spec(:testing) do
     %ControlNode.Namespace.Spec{
       tag: :testing,
