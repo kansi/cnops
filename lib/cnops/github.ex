@@ -35,6 +35,8 @@ defmodule Cnops.GitHub do
 
     plug(Tesla.Middleware.Headers, [
       {"accept", "application/vnd.github.v3+json"},
+      # Use token to avoid rate limit error from GitHub
+      {"authorization", "token #{System.fetch_env!("GITHUB_TOKEN")}"},
       {"user-agent", "Tesla"}
     ])
 
@@ -52,6 +54,8 @@ defmodule Cnops.GitHub do
 
     plug(Tesla.Middleware.Headers, [
       {"accept", "application/vnd.github.v3+json"},
+      # Use token to avoid rate limit error from GitHub
+      {"authorization", "token #{System.fetch_env!("GITHUB_TOKEN")}"},
       {"user-agent", "Tesla"}
     ])
 
