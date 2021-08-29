@@ -74,7 +74,7 @@ defmodule Cnops.Deploy do
       [] ->
         {:ok, nil}
 
-      [vsn] ->
+      [%{version: vsn}] ->
         {:ok, vsn}
 
       vsns ->
