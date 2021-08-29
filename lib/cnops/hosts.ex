@@ -7,6 +7,10 @@ defmodule Cnops.Hosts do
     gen_host_spec("34.69.107.68")
   end
 
+  def prod2_spec() do
+    gen_host_spec("35.193.95.4")
+  end
+
   defp gen_host_spec(host) do
     %ControlNode.Host.SSH{
       host: host,

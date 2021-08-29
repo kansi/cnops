@@ -15,7 +15,7 @@ defmodule Cnops.Services.Hello do
   def get_namespace_spec(:production) do
     %ControlNode.Namespace.Spec{
       tag: :production,
-      hosts: [Hosts.prod1_spec()],
+      hosts: [Hosts.prod1_spec(), Hosts.prod2_spec()],
       registry_spec: registry_spec(),
       deployment_type: :incremental_replace,
       release_cookie: :simple_cookie_4526
