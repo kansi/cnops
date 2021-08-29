@@ -18,6 +18,11 @@ config :cnops, Cnops.Scheduler,
     [
       schedule: {:extended, "*/15"},
       run_strategy: Quantum.RunStrategy.Local,
+      task: {Cnops.Deploy, :hello_production, []}
+    ],
+    [
+      schedule: {:extended, "*/15"},
+      run_strategy: Quantum.RunStrategy.Local,
       task: {Cnops.Deploy, :hello_go_testing, []}
     ]
   ]
