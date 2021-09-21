@@ -17,7 +17,7 @@ iex -S mix
 
 This tool implements the following CD workflow,
 
-<img src="./assets/simple_cd.png" alt="How it works" width="700"/>
+<img src="./assets/simple_cd.png" alt="How it works" width="600"/>
 
 
 - Monitors `hello` and `hello_go` repos and deploys the latest `master` branch to testing
